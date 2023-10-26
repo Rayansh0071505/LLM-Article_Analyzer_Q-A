@@ -60,7 +60,7 @@ if process_url_clicked:
     docs = text_splitter.split_documents(data)
 
     # Create embeddings and save them to a FAISS index
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key="OPENAI_API_KEY")
     vectorstore_openai = FAISS.from_documents(docs, embeddings)
     main_placeholder.text("Embedding Vector Started Building...✅✅✅")
     time.sleep(2)
