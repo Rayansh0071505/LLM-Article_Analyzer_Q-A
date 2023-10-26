@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env (especially OpenAI API key)
 
 # Set the title for the Streamlit app
-st.title("Article Research Tool 📈")
+st.title("URL Data Insight Engine 📈")
 
 # Create a sidebar with a title for user input
 st.sidebar.title("Article links")
