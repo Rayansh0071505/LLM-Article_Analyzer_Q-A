@@ -1,0 +1,25 @@
+Dear Recruiting Team,
+
+With a strong background in Artificial Intelligence and Machine Learning, along with relevant experience and a dedication to continuous learning, I am confident in my ability to contribute to the success of your organization.
+
+I am currently pursuing a B.Tech degree in Computer Science and Engineering with a specialization in Artificial Intelligence and Machine Learning at SRM Institute of Science and Technology. I have achieved outstanding academic results throughout my education, including a CGPA of 8.46 in my B.Tech program and scoring 95.4% in Class X and 80.2% in Class XII.
+
+My technical proficiency includes a wide range of skills and knowledge in Deep Learning, Data Analytics, Natural Language Processing (NLP), Machine Learning, Python, SQL Database, TensorFlow, Computer Vision, Data Visualization, Artificial Neural Networks, HTML + CSS, and C++ Language. I have gained practical experience in these areas through my roles as an ML Developer and ML Intern, where I successfully completed projects and collaborated with clients and colleagues.
+
+During my internship, I had the opportunity to work with emerging technologies like Bloom and gain hands-on experience with computer vision and deep learning. These experiences have strengthened my problem-solving abilities and honed my skills in developing innovative solutions. Furthermore, as a freelancer, I have developed a strong sense of dedication and a commitment to delivering high-quality solutions tailored to meet my clients' unique requirements.
+
+I am also actively involved in extracurricular activities. I am a member of Aaruush, where I collaborated with colleagues to manage finances. Additionally, I serve as an Associate in the Next Tech Lab, where I contribute to various projects and stay updated with the latest advancements in the field.
+
+In my recent summer internships, I have worked on diverse projects that have enhanced my practical skills. For example, I developed a data analytics model to predict the sale price of bulldozers, built a multiclassification neural network model for fashion clothing classification, and worked on a computer vision project that converts human pictures into pencil sketches.
+
+I have also undertaken projects such as logo placement in webcam screens, dog breed identification using deep learning, heart disease prediction using machine learning, and gym attendance prediction. These projects have not only showcased my technical expertise but also strengthened my ability to work collaboratively in a team environment.
+
+I am confident that my strong technical background, practical experience, and dedication to continuous learning make me a suitable candidate for the role of Data Science at your company. I am excited about the opportunity to contribute to your organization's growth and success.
+
+Thank you for considering my application. I have attached my resume for your review. I would appreciate the chance to further discuss how my skills and qualifications align with the requirements of the position. I am available for an interview at your convenience.
+
+Thank you for your time and consideration.
+
+Sincerely,
+
+Rayansh Srivastava
