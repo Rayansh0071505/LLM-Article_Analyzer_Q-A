@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env (especially OpenAI API key)
 
 # Set the title for the Streamlit app
-st.title("Article Research Tool 📈")
+st.title("URL DATA INSIGHT ENGINE 📈")
 
 # Create a sidebar with a title for user input
 st.sidebar.title("Article links")
@@ -61,13 +61,11 @@ if process_url_clicked:
 
     # Create embeddings and save them to a FAISS index
     embeddings = OpenAIEmbeddings()
-    for doc in docs:
-        doc["embedding"] = embeddings(doc["text"])
-    vectorstore_openai = FAISS.from_documents(docs)
+    vectorstore_openai = FAISS.from_documents(docs, embeddings)
     main_placeholder.text("Embedding Vector Started Building...✅✅✅")
     time.sleep(2)
 
-    # Save the FAISS index to a pickle file
+    # Save the FAISS index to a pickle file         
     with open(file_path, "wb") as f:
         pickle.dump(vectorstore_openai, f)
 
