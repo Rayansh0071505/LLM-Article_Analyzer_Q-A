@@ -10,7 +10,15 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env (especially OpenAI API key)
+# Load environment variables from .env
+load_dotenv()
+
+# Get the OpenAI API key from the environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if the API key is present
+if openai_api_key is None:
+    raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable in your .env file.")
 
 # Set the title for the Streamlit app
 st.title("URL DATA INSIGHT ENGINE 📈")
@@ -42,7 +50,7 @@ file_path = "faiss_store_openai.pkl"
 main_placeholder = st.empty()
 
 # Initialize the OpenAI language model
-llm = OpenAI(temperature=0.9, max_tokens=500)
+llm = OpenAI(temperature=0.9, max_tokens=500, api_key=openai_api_key)
 
 # Check if the "Process URLs" button has been clicked
 if process_url_clicked:
@@ -60,22 +68,26 @@ if process_url_clicked:
     docs = text_splitter.split_documents(data)
 
     # Create embeddings for the documents
-    embeddings = OpenAIEmbeddings(api_key="OPENAI_API_KEY")
-    doc_embeddings = [embeddings.embed_text(doc) for doc in docs]
+    embeddings = OpenAIEmbeddings(api_key=openai_api_key)
+    doc_embeddings = [embeddings.embed_text(doc) for doc in docs if doc]  # Only embed non-empty documents
 
-    # Check if all embeddings have the same dimension
-    embedding_dim = len(doc_embeddings[0])
-    if all(len(embedding) == embedding_dim for embedding in doc_embeddings):
-        # Create a FAISS index from the embeddings
-        vectorstore_openai = FAISS.from_embeddings(doc_embeddings)
-        main_placeholder.text("Embedding Vector Started Building...✅✅✅")
-        time.sleep(2)
+    # Check if there are valid embeddings
+    if doc_embeddings:
+        # Check if all embeddings have the same dimension
+        embedding_dim = len(doc_embeddings[0])
+        if all(len(embedding) == embedding_dim for embedding in doc_embeddings):
+            # Create a FAISS index from the embeddings
+            vectorstore_openai = FAISS.from_embeddings(doc_embeddings)
+            main_placeholder.text("Embedding Vector Started Building...✅✅✅")
+            time.sleep(2)
 
-        # Save the FAISS index to a pickle file
-        with open(file_path, "wb") as f:
-            pickle.dump(vectorstore_openai, f)
+            # Save the FAISS index to a pickle file
+            with open(file_path, "wb") as f:
+                pickle.dump(vectorstore_openai, f)
+        else:
+            main_placeholder.text("Error: Embeddings have different dimensions.")
     else:
-        main_placeholder.text("Error: Embeddings have different dimensions.")
+        main_placeholder.text("Error: No valid documents to embed.")
 
 # Allow the user to input a question
 query = main_placeholder.text_input("Question: ")
