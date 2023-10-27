@@ -6,12 +6,10 @@ from langchain import OpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import UnstructuredURLLoader
-from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-# from langchain.retrievers import OpenAIAPIRetriever
-
-
+from langchain.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
+
 load_dotenv()  # Load environment variables from .env (especially OpenAI API key)
 
 # Set the title for the Streamlit app
@@ -61,17 +59,23 @@ if process_url_clicked:
     main_placeholder.text("Text Splitter...Started...✅✅✅")
     docs = text_splitter.split_documents(data)
 
-    # Create embeddings and save them to a FAISS index
-    embeddings = OpenAIEmbeddings(openai_api_key="OPENAI_API_KEY")
-    # retriever = OpenAIAPIRetriever(api_key="OPENAI_API_KEY")
+    # Create embeddings for the documents
+    embeddings = OpenAIEmbeddings(api_key="OPENAI_API_KEY")
+    doc_embeddings = [embeddings.embed_text(doc) for doc in docs]
 
-    vectorstore_openai = FAISS.from_documents(docs, embeddings)
-    main_placeholder.text("Embedding Vector Started Building...✅✅✅")
-    time.sleep(2)
+    # Check if all embeddings have the same dimension
+    embedding_dim = len(doc_embeddings[0])
+    if all(len(embedding) == embedding_dim for embedding in doc_embeddings):
+        # Create a FAISS index from the embeddings
+        vectorstore_openai = FAISS.from_embeddings(doc_embeddings)
+        main_placeholder.text("Embedding Vector Started Building...✅✅✅")
+        time.sleep(2)
 
-    # Save the FAISS index to a pickle file         
-    with open(file_path, "wb") as f:
-        pickle.dump(vectorstore_openai, f)
+        # Save the FAISS index to a pickle file
+        with open(file_path, "wb") as f:
+            pickle.dump(vectorstore_openai, f)
+    else:
+        main_placeholder.text("Error: Embeddings have different dimensions.")
 
 # Allow the user to input a question
 query = main_placeholder.text_input("Question: ")
